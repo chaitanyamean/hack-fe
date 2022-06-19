@@ -22,11 +22,15 @@ const Login = () => {
 		axios.post(`${URL}/login`, data).then(res => {
 			console.log(res)
 			if (res.data) {
+				localStorage.setItem('email', res.data.email);
+				localStorage.setItem('name', res.data.name);
+				localStorage.setItem('role', res.data.role);
+				localStorage.setItem('token', res.data.token);
+				localStorage.setItem('classId', res.data.classId);
 				if (res.data.role === 'TEACHER') {
-					localStorage.setItem('email', res.data.email);
-					localStorage.setItem('name', res.data.name);
-					localStorage.setItem('role', res.data.role);
 					navigate('/teacher')
+				} else {
+					navigate('/student')
 				}
 			}
 		}).catch((err) => {
@@ -45,6 +49,9 @@ const Login = () => {
 	return (
 		<div>
 			<Container>
+				<img 
+				style={{width: '100%', margin: '20px 0px'}}
+				src="https://res.cloudinary.com/dzgqn90ha/image/upload/v1655605237/users/sms_j1n4qv.jpg" />
 				<Form>
 					<Form.Group className="mb-3" controlId="formBasicEmail">
 						<Form.Label>Email address</Form.Label>
